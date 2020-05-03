@@ -1,0 +1,39 @@
+﻿
+@model Blog.Models.Post
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@section ExtraHeaders {
+    <script src="@Url.Content("~/Scripts/Validation.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/characterCount.js")" type="text/javascript"></script>
+
+
+}
+
+<form name="myForm" action="@Href("~/Posts/Update/" + @Model.Id)" onsubmit="return validateForm()" method="post" id="postForm">
+    @if (Model.Id != 1)
+    {
+        <input type="hidden" name="name" value="@Model.Id" />
+    }
+
+    @{ DateTime dateTime = DateTime.Now;}
+
+    <input type="text" name="dateTime" value="@dateTime" style="margin-top:5px" /> Date <br />
+    <input type="text" name="title" value="@Model.Title" style="margin-top:5px" /> Title <br />
+    <input type="text" name="tags" value="@ViewBag.Tags" style="margin-top:5px" /> Tags <br />
+    <textarea name="body" rows="10" cols="80" onkeyup="countChars(this)" style="margin-top:5px">@Model.Body</textarea>    <br />
+    <div id="charNum" style="font-weight:bold"></div>
+    <input type="submit" name="name" value="Submit!" style="background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top:15px" />
+
+
+</form>

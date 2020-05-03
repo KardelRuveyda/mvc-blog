@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title - My BLOG</title>
+    <link href="~/Content/Blog.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="https://use.fontawesome.com/d1341f9b7a.js"></script>
+
+
+    @RenderSection("ExtraHeaders", false)
+</head>
+<body>
+
+    <div id="header">
+        <a  href="@Href("~/")"><img src="@Href("~/Content/Images/bloglogo.jpg")" style="border-radius: 53%;filter: grayscale(63%);" alt="Kardel Rüveyda Çetin" height="86" width="173" /></a>
+    </div>
+    <div id="content">
+        <div id="topSeperator" class="seperator">
+
+        </div>
+        <div id="sidebar">
+            <img id="portal" src="@Href("~/Content/Images/kardel.png")" alt="portal" height="150" width="150" />
+            <div id="twitterHeader" class="fa fa-twitter-square"><a href="https://twitter.com/kruveydac" target="_blank">Kardel R. CETİN on Twitter</a></div>
+            <div id="githubHeader" class="fa fa-github-square"><a href="https://github.com/KardelRuveyda" target="_blank" >Kardel R. CETİN on Github</a></div>
+
+        </div>
+        <div id="main">
+            @RenderBody()
+        </div>
+        <div id="bottomSeperator" class="seperator"></div>
+        
+    </div>
+
+    <div id="footer">
+        <div id="copyright">
+            Copyright &copy; @DateTime.Now.Year, Kardel Rüveyda ÇETİN
+        </div>
+        @if (ViewBag.IsAdmin ?? false)
+        {
+    <div class="controlPanel">
+        <a href="@Href("~/Posts/Edit")">New Post</a>
+        @*<a href="@Href("~/Accounts/Logout")">Logout</a>*@
+    </div>
+        }  else
+        {
+    <div class="controlPanel">
+        @*<a href="@Href("~/Accounts/Login")">Login</a>*@
+
+    </div>
+        }
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿@using Blog.Models;
+@model IEnumerable<Post>
+
+@{
+    ViewBag.Title = "Home";
+    bool IsPreviousLinkVisible = ViewBag.IsPreviousLinkVisible ?? false;
+    bool IsNextLinkVisible = ViewBag.IsNextLinkVisible ?? false;
+    bool isAdmin = ViewBag.isAdmin ?? false;
+
+}
+
+@foreach (var post in Model)
+{
+  @PostHelper.Render(post, Html, isAdmin, false)
+}
+
+
+@if (IsPreviousLinkVisible)
+{
+    <a id="previousLink" style="    color: red;
+    font-weight: bold;
+    font-size: 15px;" href="@Href("~/Posts/Index/"+ (ViewBag.PageNumber-1))">&laquo; Previous Page</a>
+}
+
+@if (IsNextLinkVisible)
+{
+<a id="nextLink" style="    color: darkgreen;
+    font-weight: bold;
+    font-size: 15px;" href="@Href("~/Posts/Index/"+ (ViewBag.PageNumber+1))"> Next Page &raquo;</a>
+}
+
+
