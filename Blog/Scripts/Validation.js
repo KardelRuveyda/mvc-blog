@@ -13,6 +13,11 @@
         return false;
     }
 
+    if (body == "" || body == null || body == undefined) {
+        alert("Body must be filled out");
+        return false;
+    }
+
     if (body.length > 1000) {
         alert("You have the limit of 1000 Characters ! ");
         return false;

@@ -9,9 +9,14 @@
 
 }
 
+@section ExtraHeaders {
+    <script src="@Url.Content("~/Scripts/deleteSure.js")" type="text/javascript"></script>
+
+}
+
 @foreach (var post in Model)
 {
-  @PostHelper.Render(post, Html, isAdmin, false)
+    @PostHelper.Render(post, Html, isAdmin, false)
 }
 
 
@@ -24,7 +29,7 @@
 
 @if (IsNextLinkVisible)
 {
-<a id="nextLink" style="    color: darkgreen;
+    <a id="nextLink" style="    color: darkgreen;
     font-weight: bold;
     font-size: 15px;" href="@Href("~/Posts/Index/"+ (ViewBag.PageNumber+1))"> Next Page &raquo;</a>
 }

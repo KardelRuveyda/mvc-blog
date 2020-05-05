@@ -1,5 +1,7 @@
 ﻿@using Blog.Models;
 
+
+
 @helper  Render(Post post, System.Web.Mvc.HtmlHelper html, bool isAdmin, bool showComments)
 
 {
@@ -8,32 +10,33 @@
     </div>
 
     <div class="postContainer">
-       <div class="postTabs">
-           <div class="dateTab">
-               <div class="month">
-                   @post.Datetime.Value.ToString("MMM").ToUpper()
-               </div>
-               <div class="day">
-                   @post.Datetime.Value.ToString("dd").ToUpper()
-               </div>
-           </div>
-           <div class="commentsTab">
-               <a href="@Href("~/Posts/Details/"+ post.Id +"#comments")">
-               <img src="@Href("~/Content/Images/comment.png")" height="30" width="30" />
-               @post.Comments.Count</a>
-           </div>
-       </div>
+        <div class="postTabs">
+            <div class="dateTab">
+                <div class="month">
+                    @post.Datetime.Value.ToString("MMM").ToUpper()
+                </div>
+                <div class="day">
+                    @post.Datetime.Value.ToString("dd").ToUpper()
+                </div>
+            </div>
+            <div class="commentsTab">
+                <a href="@Href("~/Posts/Details/"+ post.Id +"#comments")">
+                    <img src="@Href("~/Content/Images/comment.png")" height="30" width="30" />
+                    @post.Comments.Count
+                </a>
+            </div>
+        </div>
         <div class="postContent">
             <div class="postBody">
-                  @html.Raw(post.Body)
+                @html.Raw(post.Body)
             </div>
 
             <div class="tagList">
                 @foreach (Tag tag in post.Tags)
                 {
-                   <span class="tag">
-                       <a href="@Href("~/Posts/Tags/"+ tag.Name)">@tag.Name</a>
-                   </span>
+                    <span class="tag">
+                        <a href="@Href("~/Posts/Tags/"+ tag.Name)">@tag.Name</a>
+                    </span>
                 }
             </div>
             <div class="linkList">
@@ -44,20 +47,20 @@
 
                 }
                 @*<a href="http://reddit.com/submit?url=@encodeUrl&title=@encodedTitle"><img src="@Href("~/Content/Images/submit.png")" alt="submit" /></a>*@
-            @*    <a href="http://digg.com/submit?url=@encodeUrl&amp;title=@encodedTitle"><img src="@Href("~/Content/Images/help.png")" alt="submit" /></a>*@
-                <a href="https://twitter.com/share?url=@encodeUrl&text=@encodedTitle"  target="_blank"><img class="twitter-share-button" src="@Href("~/Content/Images/twitter.png")" alt="twitter" height="130" width="130" /></a>
+                @*    <a href="http://digg.com/submit?url=@encodeUrl&amp;title=@encodedTitle"><img src="@Href("~/Content/Images/help.png")" alt="submit" /></a>*@
+                <a href="https://twitter.com/share?url=@encodeUrl&text=@encodedTitle" target="_blank"><img class="twitter-share-button" src="@Href("~/Content/Images/twitter.png")" alt="twitter" height="130" width="130" /></a>
             </div>
 
         </div>
         @if (isAdmin)
         {
-    <div class="postControlPanel">
-        <a href="@Href("~/Posts/Delete/" + post.Id)">Delete Post</a>
-       
-    </div>
-    <div class="postControlPanelEdit">
-        <a href="@Href("~/Posts/Edit/" + post.Id)">Edit Post</a>
-    </div>
+            <div class="postControlPanel">
+                <a class="confirm" href="@Href("~/Posts/Delete/" + post.Id)">Delete Post</a>
+
+            </div>
+            <div class="postControlPanelEdit">
+                <a href="@Href("~/Posts/Edit/" + post.Id)">Edit Post</a>
+            </div>
         }
 
     </div>
@@ -65,46 +68,47 @@
 
     if (showComments)
     {
-      <div id="commentContainer">
-          <a id="comments" ></a>
+        <div id="commentContainer">
+            <a id="comments"></a>
 
-          @foreach (Comment comment in post.Comments.OrderBy(x=> x.Datetime))
-          {
-      <div class="comment">
-          <div class="commentName">
-              @if (!string.IsNullOrWhiteSpace(comment.Email))
-              {
-                  <a href="mailto:@comment.Email">@comment.Name</a>
-              }
-              else
-              {
-                  @comment.Name;
-              }
+            @foreach (Comment comment in post.Comments.OrderBy(x => x.Datetime))
+            {
+                <div class="comment">
+                    <div class="commentName">
+                        @if (!string.IsNullOrWhiteSpace(comment.Email))
+                        {
+                            <a href="mailto:@comment.Email">@comment.Name</a>
+                        }
+                        else
+                        {
+                            @comment.Name;
+                        }
 
-          </div>
-          <div class="commentBody">@html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))</div>
-          <div class="commentTime">at @comment.Datetime.Value.ToString("HH:mm") on @comment.Datetime.Value.ToString("yyyy/MM/dd")</div>
+                    </div>
+                    <div class="commentBody">@html.Raw(html.Encode(comment.Body).Replace("\n", "<br/>"))</div>
+                    <div class="commentTime">at @comment.Datetime.Value.ToString("HH:mm") on @comment.Datetime.Value.ToString("yyyy/MM/dd")</div>
 
-          @if (isAdmin)
-          {
-             <div class="commentControlPanel">
-                 <a href="@Href("~/Posts/DeleteComment/" + comment.Id)"> Delete Comment</a>
-             </div>
-          }
-      </div>
-          }
-          <div id="commentEditor">
-              <div id="commentPrompt">
+                    @if (isAdmin)
+                    {
+                        <div class="commentControlPanel">
+                            <a class="confirmComment" href="@Href("~/Posts/DeleteComment/" + comment.Id)"> Delete Comment</a>
+                        </div>
+                    }
+                </div>
+            }
+            <div id="commentEditor">
+                <div id="commentPrompt">
                     Leave a Comment!
-              </div>
-              <form action="@Href("~/Posts/Comment/"+ post.Id)" method="post">
-                  <input type="text" id="commentNamePrompt" name="name" /> Name(required) <br />
-                  <input type="text" id="commentEmailPrompt" name="email" /> Email(optional) <br />
-                  <textarea id="commentBodyInput" name="body" rows="10" cols="60"></textarea> <br/>
-                  <input type="submit" name="commentSubmitInput" value="Submit!" />
-              </form>
-          </div>
-      </div>
+                </div>
+                <form name="myForm" action="@Href("~/Posts/Comment/"+ post.Id)" method="post" onsubmit="return validateCommentForm()">
+                    <input type="text" id="commentNamePrompt" name="name" /> Name<br />
+                    <input type="text" id="commentEmailPrompt" name="email" /> Email <br />
+                    <textarea id="commentBodyInput" name="body" rows="10" cols="60" onkeyup="countCommentChars(this)"></textarea> <br />
+                    <div id="charNumComment" style="font-weight:bold"></div> <br />
+                    <input type="submit" name="commentSubmitInput" value="Submit!" />
+                </form>
+            </div>
+        </div>
     }
 
 

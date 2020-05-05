@@ -5,4 +5,14 @@
     bool isAdmin = ViewBag.IsAdmin ?? false;
 }
 
-@PostHelper.Render(Model,Html, isAdmin,true)
+@section ExtraHeaders {
+    <script src="@Url.Content("~/Scripts/deleteSure.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/characterCount.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CommentValidation.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/deleteCommentSure.js")" type="text/javascript"></script>
+
+
+
+}
+
+@PostHelper.Render(Model, Html, isAdmin, true)

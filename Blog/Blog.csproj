@@ -118,7 +118,11 @@
       <DependentUpon>BlogModel.edmx</DependentUpon>
       <LastGenOutput>BlogModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\characterCountComment.js" />
     <Content Include="Scripts\characterCount.js" />
+    <Content Include="Scripts\CommentValidation.js" />
+    <Content Include="Scripts\deleteCommentSure.js" />
+    <Content Include="Scripts\deleteSure.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="App_Code\PostHelper.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
