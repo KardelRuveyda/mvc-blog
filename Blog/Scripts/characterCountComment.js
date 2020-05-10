@@ -1,5 +1,5 @@
 ﻿function countChars(obj) {
-    var maxLength = 1000;
+    var maxLength = 100;
     var strLength = obj.value.length;
     var charRemain = (maxLength - strLength);
 
